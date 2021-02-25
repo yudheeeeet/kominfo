@@ -23,10 +23,10 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::findOrFail($id);
 
         $feedback = DB::table('feedback')->where('pengajuan_id', $pengajuan["id"])->get();
-        
+
 
         return view('detailPengajuan', compact('pengajuan','room','feedback'));
-        
+
     }
 
 
@@ -67,7 +67,15 @@ class PengajuanController extends Controller
 
         $feedback->save();
 
-        DB::table('rooms')->where('id', '=', $request->input('room'))->update(['status'=>'Dipinjam']);
+       if ($request->input('status') == 'Diterima') {
+        $room = [
+            'status' => 'Dipinjam',
+            'mulai_peminjaman' => $request->input('mulai'),
+            'akhir_peminjaman' => $request->input('akhir'),
+            'durasi' => $request->input('durasi'),
+        ];
+        DB::table('rooms')->where('id', '=', $request->input('room'))->update($room);
+       }
 
         return back();
     }

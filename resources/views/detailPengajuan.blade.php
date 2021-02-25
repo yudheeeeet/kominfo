@@ -11,7 +11,7 @@
                         Dashboard
                     </a>
                     <div class="sb-sidenav-menu-heading">Utama</div>
-                    
+
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Menu Utama
@@ -77,7 +77,7 @@
                 <br>
                 <div class="card mb-4">
                     <div class="card-body">
-                        @foreach($feedback as $item)    
+                        @foreach($feedback as $item)
                         <p class="mb-0">Ruang Yang Dipinjamkan :  {{$item->room}}</p>
                         <br>
                         <p class="mb-0">Feedback Admin :          {{$item->feedback}}</p>
@@ -90,6 +90,10 @@
             <br>
             <form action="{{url('tambah-feedback', $pengajuan->id)}}" method="POST">
                 @csrf
+                <input type="hidden" name="durasi" value="{{$pengajuan->durasi}}" readonly>
+                <input type="hidden" name="mulai" value="{{$pengajuan->mulai}}" readonly>
+                <input type="hidden" name="akhir" value="{{$pengajuan->akhir}}" readonly>
+                <input type="hidden" name="status" value="{{$pengajuan->status}}" readonly>
                 <div class="row">
                     <div class="col-md-10 mb-3">
                         <label for="ruang">Ruang Dipinjamkan</label>
@@ -100,10 +104,10 @@
                             @endforeach
                         </select>
                         <div class="invalid-feedback"> Pilih salah satu room yang tersedia</div>
-                    </div>           
+                    </div>
                 </div>
-                
-                
+
+
                 <textarea class="form-control" name="feedback" id="feedback" placeholder="berikan feedback anda" rows="4" data-error="Write your message" required></textarea>
                 <div class="help-block with-errors"></div>
                 <div class="modal-footer">
