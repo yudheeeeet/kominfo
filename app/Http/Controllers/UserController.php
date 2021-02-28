@@ -93,7 +93,6 @@ class UserController extends Controller
             'mulai' => 'required',
             'akhir' => 'required',
             'cp' => 'required',
-            'lampiran' => 'required|mimes:jpeg,jpg,bmp,png,gif,svg,pdf',
             ]);
 
         $pengajuan = Pengajuan::findOrFail($id);

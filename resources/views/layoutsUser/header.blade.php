@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>KABUPATEN MALANG</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('assetUser/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="{{asset('assetUser/text/css')}}">

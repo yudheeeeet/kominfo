@@ -41,10 +41,7 @@
                     </a>
                 </div>
             </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                Start Bootstrap
-            </div>
+
         </nav>
     </div>
     <div id="layoutSidenav_content">
@@ -75,46 +72,46 @@
                     </div>
                 </div>
                 <br>
+                @foreach($feedback as $item)
                 <div class="card mb-4">
                     <div class="card-body">
-                        @foreach($feedback as $item)
-                        <p class="mb-0">Ruang Yang Dipinjamkan :  {{$item->room}}</p>
+                        <p class="mb-0">Ruang Yang Dipinjamkan :{{DB::table('rooms')->where('id', $item->room)->value('room_name')}}</p>
                         <br>
                         <p class="mb-0">Feedback Admin :          {{$item->feedback}}</p>
                         <br>
                     </div>
-                    @endforeach
                 </div>
-            </div>
-            <h2>Tambah Balasan Anda</h2>
-            <br>
-            <form action="{{url('tambah-feedback', $pengajuan->id)}}" method="POST">
-                @csrf
-                <input type="hidden" name="durasi" value="{{$pengajuan->durasi}}" readonly>
-                <input type="hidden" name="mulai" value="{{$pengajuan->mulai}}" readonly>
-                <input type="hidden" name="akhir" value="{{$pengajuan->akhir}}" readonly>
-                <input type="hidden" name="status" value="{{$pengajuan->status}}" readonly>
-                <div class="row">
-                    <div class="col-md-10 mb-3">
-                        <label for="ruang">Ruang Dipinjamkan</label>
-                        <select class="wide w-100" name="room" id="ruang">
-                            <option data-display="Select">Tidak tersedia.</option>
-                            @foreach ($room as $item)
-                            <option value="{{$item->id}}" data-display="Select">{{$item->room_name}}</option>
-                            @endforeach
-                        </select>
-                        <div class="invalid-feedback"> Pilih salah satu room yang tersedia</div>
+                @endforeach
+                <h2>Tambah Balasan Anda</h2>
+                <br>
+                <form action="{{url('tambah-feedback', $pengajuan->id)}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="durasi" value="{{$pengajuan->durasi}}" readonly>
+                    <input type="hidden" name="mulai" value="{{$pengajuan->mulai}}" readonly>
+                    <input type="hidden" name="akhir" value="{{$pengajuan->akhir}}" readonly>
+                    <input type="hidden" name="status" value="{{$pengajuan->status}}" readonly>
+                    <div class="row">
+                        <div class="col-md-10 mb-3">
+                            <label for="ruang">Ruang Dipinjamkan</label>
+                            <select class="wide w-100" name="room" id="ruang">
+                                <option data-display="Select">Tidak tersedia.</option>
+                                @foreach ($room as $item)
+                                <option value="{{$item->id}}" data-display="Select">{{$item->room_name}}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback"> Pilih salah satu room yang tersedia</div>
+                        </div>
                     </div>
-                </div>
-
-
-                <textarea class="form-control" name="feedback" id="feedback" placeholder="berikan feedback anda" rows="4" data-error="Write your message" required></textarea>
-                <div class="help-block with-errors"></div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Kirim</button>
-                </div>
-            </form>
-            <div style="height: 100vh"></div>
+                    
+                    
+                    <textarea class="form-control" name="feedback" id="feedback" placeholder="berikan feedback anda" rows="4" data-error="Write your message" required></textarea>
+                    <div class="help-block with-errors"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </form>
+                <div style="height: 100vh"></div>
+            </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
@@ -130,3 +127,4 @@
         </footer>
     </div>
     @endsection
+    
