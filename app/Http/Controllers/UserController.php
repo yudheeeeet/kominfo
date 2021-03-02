@@ -35,16 +35,7 @@ class UserController extends Controller
         return view('/SemuaPermohonan', compact('pengajuan', 'user'));
     }
 
-    public function getDataFeedback($id)
-    {
-        $feedback = Feedback::findOrFail($id);
-        return json_encode($feedback);
-    }
 
-    public function lihatFeedback($id)
-    {
-        $feedback = Feedback::findOrFail($id);
-    }
 
     public function tambah_data_permohonan(Request $request)
     {
@@ -116,5 +107,15 @@ class UserController extends Controller
         $pengajuan->save();
 
         return back()->with('berhasil', 'data pengajuan berhasil diubah');
+    }
+
+    public function detail_feedback($id)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        $feedback = DB::table('feedback')->where('pengajuan_id', $pengajuan["id"])->get();
+
+        return view('detailFeedback', compact('user', 'feedback', 'pengajuan'));
     }
 }

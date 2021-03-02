@@ -76,17 +76,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($rekap as $item)
+                                    @foreach($meet as $item)
                                     <tr>
-                                        <td>{{$item->name}}</td>
-                                        {{-- @php
-                                        $hitung = SELECT (user_id),
-                                        COUNT(user_id) 
-                                        FROM (pengajuans) \
-                                        GROUPBY (user_id);
-                                        @endphp --}}
+                                        <td>{{$item->room_name}}</td>
+
                                         <td>
-                                            {{$item->jumlah}} Ajuan
+                                            {{$item->jumlah}} Kali Dipakai
                                         </td>
                                     </tr>
                                     @endforeach

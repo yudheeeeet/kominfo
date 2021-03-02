@@ -32,13 +32,13 @@
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Adisional</div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="/rekap">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Rekap Data
+                            Rekap Dinas
                         </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
+                        <a class="nav-link" href="/recap">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Rekap Meet
                         </a>
                     </div>
                 </div>

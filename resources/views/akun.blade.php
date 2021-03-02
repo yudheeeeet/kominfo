@@ -31,13 +31,13 @@
                         </nav>
                     </div>
                     <div class="sb-sidenav-menu-heading">Adisional</div>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="/rekap">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Rekap Data
+                        Rekap Dinas
                     </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Tables
+                    <a class="nav-link" href="/recap">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        Rekap Meet
                     </a>
                 </div>
             </div>
@@ -58,11 +58,11 @@
                         Data Pengguna
                     </div>
                     <br>
-                    <form action="/cari" method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                    <form action="/akun" method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search for..." value="{{ old('cari') }}" aria-label="Search" aria-describedby="basic-addon2" />
+                            <input class="form-control" type="text" placeholder="Search for..." name="cari" aria-label="Search" aria-describedby="basic-addon2" />
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </form>

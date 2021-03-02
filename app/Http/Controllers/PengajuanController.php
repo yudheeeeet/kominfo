@@ -7,12 +7,17 @@ use App\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuanController extends Controller
 {
-    public function pengajuan()
+    public function pengajuan(Request $request)
     {
         $pengajuan = Pengajuan::all();
+
+        if($request->has('cari')){
+            $pengajuan =  Pengajuan::where('status', 'LIKE', '%'.$request->cari.'%')->get();
+        }
 
         return view('pengajuan', compact('pengajuan'));
     }
@@ -53,12 +58,25 @@ class PengajuanController extends Controller
         return back()->with('status', 'data pengajuan ditolak');
     }
 
+    public function updatePengajuan(Request $request, $id)
+    {
+
+
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        $pengajuan ->acara = $request->input('status');
+
+        $pengajuan->save();
+
+        return back();
+    }
+
     public function tambah_feedback(Request $request, $id)
     {
         $this->validate($request, [
             'feedback' => 'required',
         ]);
-
+        // return $request;
         $feedback = new Feedback();
         $feedback ->user_id = Auth::user()->id;
         $feedback ->pengajuan_id = $id;
@@ -67,12 +85,12 @@ class PengajuanController extends Controller
 
         $feedback->save();
 
-       if ($request->input('status') == 'Diterima') {
+       if ($request->status != 'ditolak' || $request->status != 'Ditolak') {
         $room = [
             'status' => 'Dipinjam',
             'mulai_peminjaman' => $request->input('mulai'),
             'akhir_peminjaman' => $request->input('akhir'),
-            'durasi' => $request->input('durasi'),
+            'durasi_peminjaman' => $request->input('durasi'),
         ];
         DB::table('rooms')->where('id', '=', $request->input('room'))->update($room);
        }

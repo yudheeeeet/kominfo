@@ -170,41 +170,28 @@ aria-labelledby="messagesDropdown">
     
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Pengajuan</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <h1 class="h3 mb-0 text-gray-800">Balasan Admin</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"></a>
         </div>
         
         <!-- Content Row -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Rekap Semua Pengajuan</h6>
+                <h6 class="m-0 font-weight-bold text-primary"></h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="70%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Acara</th>
-                                <th>Peserta</th>
-                                <th>Status</th>
-                                <th>Opsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pengajuan as $item)
-                            <tr>
-                                <td>{{$item->acara}}</td>
-                                <td>{{$item->peserta}}</td>
-                                <td>{{$item->status}}</td>
-                                <td>
-                                    <a class="btn btn-warning" href="{{url('/detailPermohonan', $item->id)}}">Detail</a>
-                                    <a class="btn btn-primary" href="{{url('/detailFeedback', $item->id)}}">Balasan</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @foreach($feedback as $item)
+                    <p class="mb-0">Dibalas oleh :</p>
+                    <p class="mb-0">{{DB::table('users')->where('id', $item->user_id)->value('name')}}</p>
+                    <br>
+                    <p class="mb-0">Ruang Yang Dipinjamkan :</p>
+                    <p class="mb-0">{{DB::table('rooms')->where('id', $item->room)->value('room_name')}}</p>
+                    <br>
+                    <p class="mb-0">Keterangan :</p>
+                    <p class="mb-0">{{$item->feedback}}</p>
+                    <br>   
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -318,4 +305,3 @@ aria-labelledby="messagesDropdown">
 </div>
 <!-- End of Content Wrapper -->
 @endsection
-

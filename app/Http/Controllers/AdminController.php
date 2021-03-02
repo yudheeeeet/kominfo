@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use App\Room;
+use App\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,11 +17,16 @@ class AdminController extends Controller
         return view('admin');
     }
 
-    public function akun()
+    public function akun(Request $request)
     {
         $user = User::whereHas('roles', function($q){
             $q->where('name', 'user');
         })->get();
+
+        if($request->has('cari')){
+            $user =  User::where('name', 'LIKE', '%'.$request->cari.'%')->get();
+        }
+
         return view('akun', compact('user'));
     }
 
@@ -97,9 +103,14 @@ class AdminController extends Controller
         return view('rekap');
     }
 
-    public function room()
+    public function room(Request $request)
     {
         $room = Room::all();
+
+        if($request->has('cari')){
+            $room =  Room::where('status', 'LIKE', '%'.$request->cari.'%')->get();
+        }
+
         return view('room', compact('room'));
     }
 
@@ -179,6 +190,36 @@ class AdminController extends Controller
         $room->delete();
         return back();
     }
+
+    public function rekap_dinas()
+    {
+        $rekap = DB::table('pengajuans')
+        ->join('users', 'pengajuans.user_id', '=', 'users.id')
+        ->select('users.name', DB::raw('count(pengajuans.user_id) AS jumlah'))
+        ->groupBy('users.name')
+        ->get();
+
+        
+
+        // return $rekap;
+
+        return view('/rekap', compact('rekap'));
+    }
+
+    public function rekap_meet()
+    {
+        $meet = DB::table('feedback')
+        ->join('rooms', 'feedback.room', '=', 'rooms.id')
+        ->select('rooms.room_name', DB::raw('count(feedback.room) AS jumlah'))
+        ->groupBy('rooms.room_name')
+        ->get();
+
+        // return $meet;
+
+        return view('/recap', compact('meet'));
+    }
+
+
 
 
 }

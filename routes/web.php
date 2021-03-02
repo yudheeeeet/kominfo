@@ -38,7 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pengajuan/download/{lampiran}', 'PengajuanController@download');
     Route::get('/diterima{id}', 'PengajuanController@diterima');
     Route::get('/ditolak{id}', 'PengajuanController@ditolak');
+    Route::put('update-pengajuan/{id}', 'PengajuanController@updatePengajuan');
     Route::post('/tambah-feedback/{id}', 'PengajuanController@tambah_feedback');
+    Route::get('/rekap', 'AdminController@rekap_dinas');
+    Route::get('/recap', 'AdminController@rekap_meet');
     
     Route::get('/user', 'UserController@user')->name('user');
     Route::get('/permohonan', 'UserController@permohonan')->name('permohonan');
@@ -46,6 +49,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tambah-data-permohonan','UserController@tambah_data_permohonan');
     Route::get('/detailPermohonan/{id}', 'UserController@detail_permohonan');
     Route::put('update-permohonan/{id}', 'UserController@updatePermohonan');
-    Route::get('get-data-feedback/{id}', 'UserController@getDataFeedback');
-    Route::get('lihat-feedback/{id}', 'UserController@lihatFeedback');
+    Route::get('/detailFeedback/{id}', 'UserController@detail_feedback');
 });
