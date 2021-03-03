@@ -13,12 +13,13 @@
 
 
 use Illuminate\Support\Facades\Route;
-Auth::routes();
 
+Route::get('/login', 'Auth\LoginController@login');
+
+Route::get('/', function () {
+    return view('admin');
+})->name('/');
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        return view('admin');
-    })->name('/');
     
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'AdminController@admin')->name('admin');
