@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
 
 use Closure;
-
-class AccessAdmin
+use Illuminate\Support\Facades\Auth;
+class Login
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,10 @@ class AccessAdmin
      */
     public function handle($request, Closure $next)
     {
-        // if(Auth::user()->hasAnyRole('admin'))
-        // {
-        //     return $next($request);
-        // } return redirect('/');
+        if (!session('login')) {
+            return redirect('/')->with('message', 'Anda harus login terlebih dahulu!');
+        }
+        return $next($request);
+        //   return redirect('/');
     }
 }

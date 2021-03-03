@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function user()
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = User::where('id', session('id'))->first();
 
         return view('/user', compact('user'));
     }
@@ -48,7 +48,7 @@ class UserController extends Controller
             'cp' => 'required',
             'lampiran' => 'required|mimes:jpeg,jpg,bmp,png,gif,svg,pdf',
             ]);
-        
+
             $pengajuan = new Pengajuan();
             $pengajuan ->user_id = Auth::user()->id;
             $pengajuan ->acara = $request->input('acara');
@@ -57,7 +57,7 @@ class UserController extends Controller
             $pengajuan ->mulai = $request->input('mulai');
             $pengajuan ->akhir = $request->input('akhir');
             $pengajuan ->cp = $request->input('cp');
-            
+
             if ($request->file('lampiran')) {
                 $file_path = $request->file('lampiran')->store('file_lampiran', 'public');
                 $pengajuan->lampiran = $file_path;
@@ -101,7 +101,7 @@ class UserController extends Controller
                 Storage::delete('public/' . $pengajuan->lampiran);
             }
             $file_path = $request->file('lampiran')->store('file_lampiran', 'public');
-            $pengajuan->lampiran = $file_path;   
+            $pengajuan->lampiran = $file_path;
         }
 
         $pengajuan->save();
@@ -117,5 +117,11 @@ class UserController extends Controller
         $feedback = DB::table('feedback')->where('pengajuan_id', $pengajuan["id"])->get();
 
         return view('detailFeedback', compact('user', 'feedback', 'pengajuan'));
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flash('login', 0);
+        return redirect('/')->with('message', 'Berhasil Logout');
     }
 }

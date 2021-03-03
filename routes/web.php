@@ -14,15 +14,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', 'Auth\LoginController@login');
+Route::get('/', 'Auth\LoginController@login');
+Route::post('/login', 'Auth\LoginController@authenticated');
 
-Route::get('/', function () {
-    return view('admin');
-})->name('/');
-Route::group(['middleware' => 'auth'], function () {
-    
+
+Route::group(['middleware' => 'Login'], function () {
+        // Route::get('/admin', function () {
+        //     return view('admin');
+        // });
+    Route::get('/logout', 'UserController@logout');
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/', 'AdminController@admin')->name('admin');
+    Route::get('/admin', 'AdminController@admin');
     Route::get('/akun', 'AdminController@akun')->name('akun');
     Route::post('/tambah-data-user', 'AdminController@tambah_data_user');
     Route::get('/editAkun/{id}', 'AdminController@edit_akun');
@@ -32,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/room', 'AdminController@room')->name('room');
     Route::post('/tambah-data-room', 'AdminController@tambah_data_room');
     Route::get('/editRoom/{id}', 'AdminController@edit_room');
-    Route::put('update-room/{id}', 'AdminController@updateRoom');    
+    Route::put('update-room/{id}', 'AdminController@updateRoom');
     Route::post('hapus-room/{id}', 'AdminController@hapusRoom');
     Route::get('/pengajuan', 'PengajuanController@pengajuan')->name('pengajuan');
     Route::get('detailPengajuan/{id}', 'PengajuanController@detail_pengajuan');
@@ -43,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tambah-feedback/{id}', 'PengajuanController@tambah_feedback');
     Route::get('/rekap', 'AdminController@rekap_dinas');
     Route::get('/recap', 'AdminController@rekap_meet');
-    
+
     Route::get('/user', 'UserController@user')->name('user');
     Route::get('/permohonan', 'UserController@permohonan')->name('permohonan');
     Route::get('/SemuaPermohonan', 'UserController@SemuaPermohonan')->name('SemuaPermohonan');
